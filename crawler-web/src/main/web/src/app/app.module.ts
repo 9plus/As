@@ -7,11 +7,13 @@ import { MaterialModule } from './common/material.module';
 import { HomeComponent } from './home/home.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DetaiComponent } from './detai/detai.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    DetaiComponent
   ],
   imports: [
     BrowserModule,
