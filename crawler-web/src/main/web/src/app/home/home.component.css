@@ -1,0 +1,25 @@
+.home-container {
+    position: absolute;
+    width: 900px;
+    height: 680px;
+    left: 50%;
+    top: 50%;
+    margin-left: -450px;
+    margin-top: -300px;
+    border: 1px solid #000000;
+}
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    margin-left: 50px;
+}
+  
+.example-full-width {
+    width: 800px;
+}
+
+.example-ripple-container {
+    margin: 0 auto;
+    width: 800px;
+    height: 580px;
+}
