@@ -1,6 +1,6 @@
 # Introduction
 
-![](<https://img.shields.io/badge/springboot-v2.1-brightgreen.svg>)![](<https://img.shields.io/badge/-typescript-blue.svg>)![](<https://img.shields.io/badge/angular-v6.0-red.svg>)
+![](<https://img.shields.io/badge/springboot-v2.1-brightgreen.svg>)    ![](<https://img.shields.io/badge/-typescript-blue.svg>)    ![](<https://img.shields.io/badge/angular-v6.0-red.svg>)
 
 在线查询斗鱼弹幕。
 
