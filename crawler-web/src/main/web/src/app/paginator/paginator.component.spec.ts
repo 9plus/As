@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AsPaginatorComponent } from './as-paginator.component';
+import { PaginatorComponent } from './paginator.component';
 
-describe('AsPaginatorComponent', () => {
-  let component: AsPaginatorComponent;
-  let fixture: ComponentFixture<AsPaginatorComponent>;
+describe('PaginatorComponent', () => {
+  let component: PaginatorComponent;
+  let fixture: ComponentFixture<PaginatorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AsPaginatorComponent ]
+      declarations: [ PaginatorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AsPaginatorComponent);
+    fixture = TestBed.createComponent(PaginatorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

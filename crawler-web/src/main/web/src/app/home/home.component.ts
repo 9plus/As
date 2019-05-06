@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { AsHttp } from '../common/service/as-http.service';
+import { AsHttp } from '../service/as-http.service';
 
 export interface DanMu {
   id: number;

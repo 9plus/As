@@ -1,12 +1,12 @@
 <div style="float: right;">
-<mat-form-field>
-  <mat-label>Page</mat-label>
-  <mat-select>
-    <mat-option>-</mat-option>
-    <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
-  </mat-select>
-</mat-form-field>
-
+  <mat-form-field>
+    <mat-label>Page</mat-label>
+    <mat-select>
+      <mat-option>-</mat-option>
+      <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  
   <button mat-icon-button><mat-icon>first_page</mat-icon></button>
   <button mat-icon-button><mat-icon>chevron_left</mat-icon></button>
   <button mat-icon-button><mat-icon>chevron_right</mat-icon></button>
