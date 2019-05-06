@@ -1,31 +1,29 @@
-<div class="home-container">
-  <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="用户名">
-    </mat-form-field>
-    <a mat-raised-button class="home-button">
-      <span>Search</span>
-    </a>
-    <a mat-raised-button class="home-button" [routerLink]="['/', 'detail']">
-      <span>Detail</span><mat-icon>navigate_next</mat-icon>
-    </a>
-  </form>
-  
-  
-  <table class="example-ripple-container mat-elevation-z4">
-    <div *ngFor="let item of HERO">
-      [{{item.id}}]:{{item.name}}
-    </div>
-  </table>
+<mat-card class="home-container">
+    <mat-card-content>
+        <form class="example-form">
+          <mat-form-field appearance="outline" class="example-full-width">
+            <mat-label>Click Me</mat-label>
+            <input matInput placeholder="Username">
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          </mat-form-field>
+          <a mat-raised-button class="home-button">
+            <span>Search</span>
+          </a>
+          <a mat-raised-button class="home-button" [routerLink]="['/', 'detail']">
+            <span>Detail</span><mat-icon>navigate_next</mat-icon>
+          </a>
+        </form>
+        
+        <mat-card>
+          <mat-card-content class="example-ripple-container">
+            <div *ngFor="let item of danMu">
+              [{{item.id}}]:{{item.name}}
+            </div>
+          </mat-card-content>
+        </mat-card>
+        <app-as-paginator></app-as-paginator>
+      </mat-card-content>
+</mat-card>
 
-  <div>
-      <button mat-icon-button><mat-icon>first_page</mat-icon></button>
-      <button mat-icon-button><mat-icon>chevron_left</mat-icon></button>
-      <button>1</button>
-      <button>2</button>
-      <button mat-icon-button><mat-icon>chevron_right</mat-icon></button>
-      <button mat-icon-button><mat-icon>last_page</mat-icon></button>
-  </div>
-</div>
 
 

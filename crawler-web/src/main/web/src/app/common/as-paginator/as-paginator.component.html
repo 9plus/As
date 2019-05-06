@@ -1,0 +1,13 @@
+<div style="float: right;">
+<mat-form-field>
+  <mat-label>Page</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+  <button mat-icon-button><mat-icon>first_page</mat-icon></button>
+  <button mat-icon-button><mat-icon>chevron_left</mat-icon></button>
+  <button mat-icon-button><mat-icon>chevron_right</mat-icon></button>
+  <button mat-icon-button><mat-icon>last_page</mat-icon></button>
+</div>
