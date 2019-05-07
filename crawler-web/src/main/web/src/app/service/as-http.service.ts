@@ -5,7 +5,9 @@ import {HttpClient, HttpParams} from '@angular/common/http';
  * 注入一个类时,需要用@Injectable标注
  * 并在module文件provide
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AsHttp {
   public server;
   public http;
