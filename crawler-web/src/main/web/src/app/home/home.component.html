@@ -4,8 +4,8 @@
       <mat-form-field appearance="outline" class="example-full-width">
         <mat-label>Click Me</mat-label>
         <input #userName 
-          (keyup.enter)="getDanMu(userName.value)"
-          (blur)="getDanMu(userName.value)"
+          (keyup.enter)="search(userName.value)"
+          (blur)="search(userName.value)"
           matInput placeholder="Username">
         <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
       </mat-form-field>
@@ -16,7 +16,7 @@
         <span>Detail</span><mat-icon>navigate_next</mat-icon>
       </a>
     </div>
-    <mat-tab-group [(selectedIndex)]="currentRoom">
+    <mat-tab-group [(selectedIndex)]="currentRoom" (selectedTabChange)=onRoomChanged()>
       <mat-tab *ngFor="let room of rooms" label="{{room}}">
         <mat-card style="overflow-y: auto;">
           <mat-card-content class="example-ripple-container">

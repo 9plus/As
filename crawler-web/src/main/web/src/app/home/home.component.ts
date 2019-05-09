@@ -1,16 +1,8 @@
 import { Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
 import { AsHttp } from '../service/as-http.service';
-import { HomeUtil } from '../common/home.util';
-
-export interface DanMu {
-  card: string;
-  name: string;
-  text: string;
-  time: string;
-  room: number;
-  streamer: string;
-}
+import { HomeUtil, DanMu } from '../common/home.util';
+import { DyUser } from '../common/dy.user';
 
 /**
  * Angular 中文文档 https://angular.cn/guide/router
@@ -68,9 +60,9 @@ export class HomeComponent implements OnInit, AfterViewInit{
   currentPage: number;
   currentRoom: number;
 
-  danMuByRoom: Map<string, DanMu[]> = new Map();
-
   rooms: string[];
+
+  dyUser: DyUser;
 
   danMuPageSize: number;
   pages: number[] = [];
@@ -80,46 +72,72 @@ export class HomeComponent implements OnInit, AfterViewInit{
   ) {}
 
   ngOnInit() {
-    this.handleData(this.danMus);
-    
+    this.dyUser = new DyUser();
   }
 
   public ngAfterViewInit() {
-    this.updateDanMu(this.rooms[this.currentRoom]);
   }
 
-  public getDanMu(name: string): void {
+  public search(name: string): void {
+    this.initDyUser(name);
+    this.show();
+  }
+
+  public initDyUser(name: string): void {
+    this.dyUser.clear();
+
+    this.dyUser.name = name;
+    for(let danMu of this.getDanMu(name)) {
+      if(!this.dyUser[danMu.room]) {
+        this.dyUser.danMus[danMu.room] = []
+      }
+      this.dyUser.danMus[danMu.room].push(danMu);
+      if (!this.dyUser.rooms.has(danMu.room)) {
+        this.dyUser.rooms[danMu.room] = danMu.streamer;
+      }
+    }
+    this.dyUser.cards = this.getCards(name);
+  }
+
+  public getDanMu(name: string): DanMu[] {
     // const that = this;
     // const param = {'name': name, 'count': queryCount, 'skipCount': skipCount};
     // this.httpClient.get(HomeUtil.DANMU_QUERY_URL, param, function(res: Array<DanMu>) {
     //   that.danMus = res;
     // });
-    this.handleData(this.danMus);
+    return this.danMus;
   }
 
-  public handleData(data: DanMu[]): void {
-    let roomSet: Set<string> = new Set();
-    for (let dm of data) {
-      if (!this.danMuByRoom[dm.streamer]) {
-        this.danMuByRoom[dm.streamer] = [];
-      }
-      this.danMuByRoom[dm.streamer].push(dm);
-      roomSet.add(dm.streamer);
-    }
-    this.rooms = Array.from(roomSet);
+  public getCards(name: string): string[] {
+    return ['xiaojiangshi', 'jituanjun'];
   }
 
-  public updateDanMu(room: string): void {
-    this.currentDanMus = this.danMuByRoom[room];
-
+  public show(): void {
+    this.rooms = Array.from(this.dyUser.rooms.values());
+    this.currentDanMus = this.dyUser.danMus[this.currentRoom];
     this.danMuPageSize = Math.ceil(1.0 * this.currentDanMus.length / HomeUtil.PAGE_DANMU_SIZE);
     for (let i = 1; i <= this.danMuPageSize; i++) {
       this.pages.push(i);
     }
 
+    this.currentDanMus = this.currentDanMus.slice(0, HomeUtil.PAGE_DANMU_SIZE);
+  }
+
+  public onRoomChanged(): void {
+    this.currentDanMus = this.dyUser.danMus[this.currentRoom];
+    this.pages = [];
+    this.danMuPageSize = Math.ceil(1.0 * this.currentDanMus.length / HomeUtil.PAGE_DANMU_SIZE);
+    for (let i = 1; i <= this.danMuPageSize; i++) {
+      this.pages.push(i);
+    }
+
+    this.currentDanMus = this.currentDanMus.slice(0, HomeUtil.PAGE_DANMU_SIZE);
+  }
+
+  public onPageChanged(): void {
+    this.currentDanMus = this.dyUser.danMus[this.currentRoom];
     let start: number = this.currentPage <= 0 ? 0 : (this.currentPage - 1) * HomeUtil.PAGE_DANMU_SIZE;
     let end: number = this.currentPage * HomeUtil.PAGE_DANMU_SIZE;
-
     this.currentDanMus = this.currentDanMus.slice(start, end);
-  } 
+  }
 }
