@@ -9,7 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DetaiComponent } from './detai/detai.component';
 import { AsHttp } from './service/as-http.service';
 import { HttpClientModule } from '@angular/common/http';
-import { PaginatorComponent } from './paginator/paginator.component';
 
 @NgModule({
   // 定义属于该模块下的组件
@@ -17,7 +16,6 @@ import { PaginatorComponent } from './paginator/paginator.component';
     AppComponent,
     HomeComponent,
     DetaiComponent,
-    PaginatorComponent,
   ],
   // 给某模块导入就等同于给该某块下所有declaratons中声明的组件导入module
   imports: [

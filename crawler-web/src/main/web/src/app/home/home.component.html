@@ -1,28 +1,50 @@
 <mat-card class="home-container">
-    <mat-card-content>
-        <form class="example-form">
-          <mat-form-field appearance="outline" class="example-full-width">
-            <mat-label>Click Me</mat-label>
-            <input matInput placeholder="Username">
-            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-          </mat-form-field>
-          <a mat-raised-button class="home-button">
-            <span>Search</span>
-          </a>
-          <a mat-raised-button class="home-button" [routerLink]="['/', 'detail']">
-            <span>Detail</span><mat-icon>navigate_next</mat-icon>
-          </a>
-        </form>
-        
-        <mat-card>
+  <mat-card-content>
+    <div class="example-form">
+      <mat-form-field appearance="outline" class="example-full-width">
+        <mat-label>Click Me</mat-label>
+        <input #userName 
+          (keyup.enter)="getDanMu(userName.value)"
+          (blur)="getDanMu(userName.value)"
+          matInput placeholder="Username">
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      </mat-form-field>
+      <a mat-raised-button class="home-button">
+        <span>Search</span>
+      </a>
+      <a mat-raised-button class="home-button" [routerLink]="['/', 'detail']">
+        <span>Detail</span><mat-icon>navigate_next</mat-icon>
+      </a>
+    </div>
+    <mat-tab-group [(selectedIndex)]="currentRoom">
+      <mat-tab *ngFor="let room of rooms" label="{{room}}">
+        <mat-card style="overflow-y: auto;">
           <mat-card-content class="example-ripple-container">
-            <div *ngFor="let item of danMu">
-              [{{item.id}}]:{{item.name}}
+            <div style="font-size: 16px;word-break:break-all;" *ngFor="let danMu of currentDanMus">
+                  [{{danMu.time}}] {{danMu.name}} : {{danMu.text}}
             </div>
           </mat-card-content>
         </mat-card>
-        <as-paginator></as-paginator>
-      </mat-card-content>
+
+        <!--paginator-->
+        <div style="float: right;">
+          <mat-form-field>
+            <mat-label>Page</mat-label>
+            <mat-select [(value)]="currentPage">
+              <mat-option>-</mat-option>
+              <mat-option *ngFor="let page of pages" [value]="page" (selectionChange)="updateDanMu(room)">{{page}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+          <button mat-icon-button><mat-icon>first_page</mat-icon></button>
+          <button mat-icon-button><mat-icon>chevron_left</mat-icon></button>
+          <button mat-icon-button><mat-icon>chevron_right</mat-icon></button>
+          <button mat-icon-button><mat-icon>last_page</mat-icon></button>
+        </div>
+
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
 </mat-card>
 
 
