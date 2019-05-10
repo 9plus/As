@@ -3,13 +3,15 @@
     <div class="example-form">
       <mat-form-field appearance="outline" class="example-full-width">
         <mat-label>Click Me</mat-label>
-        <input #userName 
-          (keyup.enter)="search(userName.value)"
-          (blur)="search(userName.value)"
+        <input [(ngModel)]="userName"
+          (keyup.enter)="search(userName)"
           matInput placeholder="Username">
-        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <button mat-icon-button
+          matTooltip="I Feel Lucky!"
+          matSuffix 
+          (click)="getRandomName()"><mat-icon >casino</mat-icon></button>
       </mat-form-field>
-      <a mat-raised-button class="home-button">
+      <a mat-raised-button class="home-button" (click)="search(userName)">
         <span>Search</span>
       </a>
       <a mat-raised-button class="home-button" [routerLink]="['/', 'detail']">

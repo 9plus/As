@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatTableDataSource, TooltipPosition } from '@angular/material';
 import { AsHttp } from '../service/as-http.service';
 import { HomeUtil, DanMu } from '../common/home.util';
 import { DyUser } from '../common/dy.user';
+import { FormControl } from '@angular/forms';
 
 /**
  * Angular 中文文档 https://angular.cn/guide/router
@@ -68,17 +69,18 @@ export class HomeComponent implements OnInit, AfterViewInit{
     { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
   ];
 
+  /** ??????????????? ?????????????????? */
   currentDanMus: DanMu[] = [];
-  selectedPage: number;
-  selectedRoomIndex: number;
-
-  rooms: number[] = [];
-  streamers: string[] = [];
+  userName: string; // ???
+  rooms: number[] = []; // ??????????????
+  streamers: string[] = []; // ????????????
+  pages: number[] = []; // ?????????
+  pageCount: number; // ???
 
   dyUser: DyUser;
 
-  danMuPageSize: number;
-  pages: number[] = [];
+  selectedPage: number; // ???????
+  selectedRoomIndex: number; // ????????index 0,1,2...
 
   constructor(
     private httpClient: AsHttp
@@ -91,15 +93,21 @@ export class HomeComponent implements OnInit, AfterViewInit{
   public ngAfterViewInit() {
   }
 
+  public getRandomName(): void {
+    this.userName = `${Math.random()}`;
+  }
+
   public search(name: string): void {
-    this.clear();
+    if (!name || name === '') {
+      return;
+    }
+    this.clearViewInfo();
     this.initDyUser(name);
     this.show();
   }
 
   public initDyUser(name: string): void {
     this.dyUser.clear();
-
     this.dyUser.name = name;
     for(let danMu of this.getDanMu(name)) {
       if(!this.dyUser.danMus.get(danMu.room)) {
@@ -133,8 +141,8 @@ export class HomeComponent implements OnInit, AfterViewInit{
     });
     setTimeout(() => {
       this.currentDanMus = this.dyUser.danMus.get(this.rooms[this.selectedRoomIndex ? this.selectedRoomIndex : 0]);
-      this.danMuPageSize = Math.ceil(1.0 * this.currentDanMus.length / HomeUtil.PAGE_DANMU_SIZE);
-      for (let i = 1; i <= this.danMuPageSize; i++) {
+      this.pageCount = Math.ceil(1.0 * this.currentDanMus.length / HomeUtil.PAGE_DANMU_SIZE);
+      for (let i = 1; i <= this.pageCount; i++) {
         this.pages.push(i);
       }
       this.selectedPage = 1;
@@ -146,8 +154,8 @@ export class HomeComponent implements OnInit, AfterViewInit{
     console.log("on room change");
     this.currentDanMus = this.dyUser.danMus.get(this.rooms[this.selectedRoomIndex ? this.selectedRoomIndex : 0]);
     this.pages = [];
-    this.danMuPageSize = Math.ceil(1.0 * this.currentDanMus.length / HomeUtil.PAGE_DANMU_SIZE);
-    for (let i = 1; i <= this.danMuPageSize; i++) {
+    this.pageCount = Math.ceil(1.0 * this.currentDanMus.length / HomeUtil.PAGE_DANMU_SIZE);
+    for (let i = 1; i <= this.pageCount; i++) {
       this.pages.push(i);
     }
 
@@ -185,7 +193,7 @@ export class HomeComponent implements OnInit, AfterViewInit{
     this.onPageChanged();
   }
 
-  public clear(): void {
+  public clearViewInfo(): void {
     this.rooms = [];
     this.streamers = [];
     this.currentDanMus = [];
