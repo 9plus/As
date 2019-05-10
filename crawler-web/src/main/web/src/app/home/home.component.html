@@ -16,8 +16,8 @@
         <span>Detail</span><mat-icon>navigate_next</mat-icon>
       </a>
     </div>
-    <mat-tab-group [(selectedIndex)]="currentRoom" (selectedTabChange)=onRoomChanged()>
-      <mat-tab *ngFor="let room of rooms" label="{{room}}">
+    <mat-tab-group [(selectedIndex)]="selectedRoomIndex" (selectedTabChange)=onRoomChanged()>
+      <mat-tab *ngFor="let streamer of streamers" label="{{streamer}}">
         <mat-card style="overflow-y: auto;">
           <mat-card-content class="example-ripple-container">
             <div style="font-size: 16px;word-break:break-all;" *ngFor="let danMu of currentDanMus">
@@ -30,16 +30,15 @@
         <div style="float: right;">
           <mat-form-field>
             <mat-label>Page</mat-label>
-            <mat-select [(value)]="currentPage">
-              <mat-option>-</mat-option>
-              <mat-option *ngFor="let page of pages" [value]="page" (selectionChange)="updateDanMu(room)">{{page}}</mat-option>
+            <mat-select [(value)]="selectedPage" (selectionChange)="onPageChanged()">
+              <mat-option *ngFor="let page of pages" [value]="page">{{page}}</mat-option>
             </mat-select>
           </mat-form-field>
           
-          <button mat-icon-button><mat-icon>first_page</mat-icon></button>
-          <button mat-icon-button><mat-icon>chevron_left</mat-icon></button>
-          <button mat-icon-button><mat-icon>chevron_right</mat-icon></button>
-          <button mat-icon-button><mat-icon>last_page</mat-icon></button>
+          <button mat-icon-button (click)="onFirstPage()"><mat-icon>first_page</mat-icon></button>
+          <button mat-icon-button (click)="onPrePage()"><mat-icon>chevron_left</mat-icon></button>
+          <button mat-icon-button (click)="onNextPage()"><mat-icon>chevron_right</mat-icon></button>
+          <button mat-icon-button (click)="onLastPage()"><mat-icon>last_page</mat-icon></button>
         </div>
 
       </mat-tab>

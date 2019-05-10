@@ -9,9 +9,9 @@ export class DyUser {
 
   constructor() {
     this.name = '';
-    this.rooms = new Map();
+    this.rooms = new Map<number, string>();
     this.cards = [];
-    this.danMus = new Map();
+    this.danMus = new Map<number, DanMu[]>();
   }
 
   clear() {

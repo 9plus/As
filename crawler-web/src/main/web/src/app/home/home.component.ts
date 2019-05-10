@@ -54,13 +54,26 @@ export class HomeComponent implements OnInit, AfterViewInit{
     { card: 'js', name: 'user1', text: 'hello', time: '2019-5-9', room: 9999, streamer: 'fg'},
     { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
     { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 2009, streamer: '09'},
+    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
+    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
+    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
+    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
+    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
+    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
+    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
+    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
+    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
+    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
+    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
+    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
   ];
 
   currentDanMus: DanMu[] = [];
-  currentPage: number;
-  currentRoom: number;
+  selectedPage: number;
+  selectedRoomIndex: number;
 
-  rooms: string[];
+  rooms: number[] = [];
+  streamers: string[] = [];
 
   dyUser: DyUser;
 
@@ -79,6 +92,7 @@ export class HomeComponent implements OnInit, AfterViewInit{
   }
 
   public search(name: string): void {
+    this.clear();
     this.initDyUser(name);
     this.show();
   }
@@ -88,12 +102,12 @@ export class HomeComponent implements OnInit, AfterViewInit{
 
     this.dyUser.name = name;
     for(let danMu of this.getDanMu(name)) {
-      if(!this.dyUser[danMu.room]) {
-        this.dyUser.danMus[danMu.room] = []
+      if(!this.dyUser.danMus.get(danMu.room)) {
+        this.dyUser.danMus.set(danMu.room, []);
       }
-      this.dyUser.danMus[danMu.room].push(danMu);
+      this.dyUser.danMus.get(danMu.room).push(danMu);
       if (!this.dyUser.rooms.has(danMu.room)) {
-        this.dyUser.rooms[danMu.room] = danMu.streamer;
+        this.dyUser.rooms.set(danMu.room, danMu.streamer);
       }
     }
     this.dyUser.cards = this.getCards(name);
@@ -113,18 +127,24 @@ export class HomeComponent implements OnInit, AfterViewInit{
   }
 
   public show(): void {
-    this.rooms = Array.from(this.dyUser.rooms.values());
-    this.currentDanMus = this.dyUser.danMus[this.currentRoom];
-    this.danMuPageSize = Math.ceil(1.0 * this.currentDanMus.length / HomeUtil.PAGE_DANMU_SIZE);
-    for (let i = 1; i <= this.danMuPageSize; i++) {
-      this.pages.push(i);
-    }
-
-    this.currentDanMus = this.currentDanMus.slice(0, HomeUtil.PAGE_DANMU_SIZE);
+    this.dyUser.rooms.forEach((value, key) => {
+      this.rooms.push(key);
+      this.streamers.push(value);
+    });
+    setTimeout(() => {
+      this.currentDanMus = this.dyUser.danMus.get(this.rooms[this.selectedRoomIndex ? this.selectedRoomIndex : 0]);
+      this.danMuPageSize = Math.ceil(1.0 * this.currentDanMus.length / HomeUtil.PAGE_DANMU_SIZE);
+      for (let i = 1; i <= this.danMuPageSize; i++) {
+        this.pages.push(i);
+      }
+      this.selectedPage = 1;
+      this.currentDanMus = this.currentDanMus.slice(0, HomeUtil.PAGE_DANMU_SIZE);
+    });
   }
 
   public onRoomChanged(): void {
-    this.currentDanMus = this.dyUser.danMus[this.currentRoom];
+    console.log("on room change");
+    this.currentDanMus = this.dyUser.danMus.get(this.rooms[this.selectedRoomIndex ? this.selectedRoomIndex : 0]);
     this.pages = [];
     this.danMuPageSize = Math.ceil(1.0 * this.currentDanMus.length / HomeUtil.PAGE_DANMU_SIZE);
     for (let i = 1; i <= this.danMuPageSize; i++) {
@@ -135,9 +155,40 @@ export class HomeComponent implements OnInit, AfterViewInit{
   }
 
   public onPageChanged(): void {
-    this.currentDanMus = this.dyUser.danMus[this.currentRoom];
-    let start: number = this.currentPage <= 0 ? 0 : (this.currentPage - 1) * HomeUtil.PAGE_DANMU_SIZE;
-    let end: number = this.currentPage * HomeUtil.PAGE_DANMU_SIZE;
+    console.log(`on page change and the index is : ${this.selectedPage}`);
+    this.currentDanMus = this.dyUser.danMus.get(this.rooms[this.selectedRoomIndex ? this.selectedRoomIndex : 0]);
+    if (!this.selectedPage || this.selectedPage <= 0) {
+      this.selectedPage = 1;
+    }
+    let start: number = (this.selectedPage - 1) * HomeUtil.PAGE_DANMU_SIZE;
+    let end: number = this.selectedPage * HomeUtil.PAGE_DANMU_SIZE;
     this.currentDanMus = this.currentDanMus.slice(start, end);
+  }
+
+  public onFirstPage(): void {
+    this.selectedPage = 1;
+    this.onPageChanged();
+  }
+
+  public onPrePage(): void {
+    this.selectedPage = this.selectedPage <= 1 ? 1 : this.selectedPage - 1;
+    this.onPageChanged();
+  }
+
+  public onNextPage(): void {
+    this.selectedPage = this.selectedPage >= this.pages.length ? this.pages.length : this.selectedPage + 1;
+    this.onPageChanged();
+  }
+
+  public onLastPage(): void {
+    this.selectedPage = this.pages.length;
+    this.onPageChanged();
+  }
+
+  public clear(): void {
+    this.rooms = [];
+    this.streamers = [];
+    this.currentDanMus = [];
+    this.pages = [];
   }
 }
