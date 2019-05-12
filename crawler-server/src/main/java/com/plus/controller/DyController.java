@@ -7,21 +7,21 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-
 @Component
 @Order(1)
 public class DyController implements ApplicationRunner {
 
 
     @Override
-    public void run(ApplicationArguments args) throws IOException{
-        CrawlerThread crawlerThread = new CrawlerThread(9999);
-        AliveThread aliveThread = new AliveThread();
-        Thread t1 = new Thread(crawlerThread);
-        Thread t2 = new Thread(aliveThread);
+    public void run(ApplicationArguments args) {
+        Thread t1 = new Thread(new CrawlerThread(60937));
+//        Thread t2 = new Thread(new CrawlerThread(88660));
+        Thread t3 = new Thread(new AliveThread());
         t1.start();
-        t2.start();
+//        t2.start();
+        t3.start();
+
+
 
         while (Thread.activeCount() > 1) {
             Thread.yield();

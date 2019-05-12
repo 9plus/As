@@ -6,6 +6,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DyUtil {
 
@@ -18,6 +22,7 @@ public class DyUtil {
     // 消息头长度 = 消息长度(4) + 消息类型,加密,保留字段(4) + 内容长度(?) + 结尾标识符(1)
     public static final int DATA_HEAD_LEN = 4 + 4 + 1;
     public static final int CODE = 689;
+    public static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
      * 以小端模式将int转成byte[]
@@ -69,7 +74,7 @@ public class DyUtil {
         }
     }
 
-    public static byte[] receiveMsg(Socket client) {
+    public static String receiveMsg(Socket client) {
         ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
         try{
             InputStream inputStream = client.getInputStream();
@@ -77,12 +82,21 @@ public class DyUtil {
             int dataLength = getResponseLength(inputStream);
             int contentLen2 = getResponseLength(inputStream);
             int msgType = getResponseLength(inputStream);
+            if (dataLength != 0) {
+                System.out.println("data length is : " + dataLength + " and content len is : " + contentLen2 + " code is : " + msgType);
+            }
+
+            if (dataLength <= 8 || dataLength >= 1024) {
+                return "-1";
+            }
+
+            dataLength = dataLength - 8;
 
             int len = 0;
             int readLen = 0;
-            dataLength = dataLength - 8;
             byte[] bytes = new byte[dataLength];
             while ((len = inputStream.read(bytes, 0 , dataLength - readLen)) != -1) {
+                System.out.println("len is : " + len);
                 byteArray.write(bytes, 0 ,len);
                 readLen += len;
                 if (readLen == dataLength) {
@@ -90,16 +104,28 @@ public class DyUtil {
                 }
             }
 
+
         } catch (IOException e){
             e.printStackTrace();
         }
-        return byteArray.toByteArray();
+
+        return new String(Arrays.copyOfRange(byteArray.toByteArray(), 0, byteArray.toByteArray().length));
     }
 
     private static int getResponseLength(InputStream inputStream) throws IOException {
         byte[] bytes = new byte[4];
         inputStream.read(bytes, 0 , 4);
         return bytesToInt(bytes);
+    }
 
+    public static String getMsg(String text, String regex, int start, int end) {
+        String result = "";
+//        Pattern pattern = Pattern.compile("txt@=(.+?)/cid@");
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(text);
+        while (matcher.find()) {
+            result = matcher.group(0);
+        }
+        return result.length() <= 0 ? "" : result.substring(start, result.length() - end);
     }
 }
