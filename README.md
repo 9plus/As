@@ -4,7 +4,13 @@
 
 在线查询斗鱼弹幕。
 
+# Demo
+
+* [小试Angular -- Hello World](<https://github.com/9plus/As/tree/master/demo/hello-world>)
+
 # Deploy
+
+目前整个项目还没写完，可以按照以下步骤测试前端页面。
 
 **Step1**
 
