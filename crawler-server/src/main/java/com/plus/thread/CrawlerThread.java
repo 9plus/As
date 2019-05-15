@@ -29,35 +29,12 @@ public class CrawlerThread implements Runnable {
             Pattern p1 = Pattern.compile("txt@=(.+?)/cid@");
             Matcher matcher = p1.matcher(s);
             String danMu = "";
-            String userName = "";
-            String card = "";
-            String time = "";
             while (matcher.find()) {
                 danMu = matcher.group(0);
             }
             if (!danMu.equals("")) {
                 System.out.println(DyUtil.df.format(new Date()) + " " + danMu);
             }
-//                Pattern p2 = Pattern.compile("/nn@=(.+?)/");
-//                Matcher matcher2 = p2.matcher(s);
-//
-//                while (matcher2.find()) {
-//                    userName = matcher2.group(0);
-//                }
-//
-//                p2 = Pattern.compile("bnn@=(.+?)/bl");
-//                matcher2 = p2.matcher(s);
-//
-//                while (matcher2.find()) {
-//                    card = matcher2.group(0);
-//                }
-//                if (!danMu.equals("")) {
-//                    System.out.println(df.format(new Date()) + " " + card + " " + "[" + userName + "]" + ": " + danMu);
-//                }
-
-//            String userName = DyUtil.getMsg(s, "/nn@=(.+?)/", 5, 1);
-//            String danMu = DyUtil.getMsg(s, "txt@=(.+?)/cid@", 5, 5);
-//            String card = DyUtil.getMsg(s, "bnn@=(.+?)/", 5, 1);
 
             try {
                 Thread.sleep(1);

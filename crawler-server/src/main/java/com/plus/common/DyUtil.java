@@ -92,7 +92,7 @@ public class DyUtil {
 
             dataLength = dataLength - 8;
 
-            int len = 0;
+            int len;
             int readLen = 0;
             byte[] bytes = new byte[dataLength];
             while ((len = inputStream.read(bytes, 0 , dataLength - readLen)) != -1) {
@@ -109,7 +109,7 @@ public class DyUtil {
             e.printStackTrace();
         }
 
-        return new String(Arrays.copyOfRange(byteArray.toByteArray(), 0, byteArray.toByteArray().length));
+        return byteArray.toString();
     }
 
     private static int getResponseLength(InputStream inputStream) throws IOException {
