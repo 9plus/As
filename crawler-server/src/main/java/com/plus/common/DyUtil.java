@@ -8,6 +8,8 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,7 +24,7 @@ public class DyUtil {
     // 消息头长度 = 消息长度(4) + 消息类型,加密,保留字段(4) + 内容长度(?) + 结尾标识符(1)
     public static final int DATA_HEAD_LEN = 4 + 4 + 1;
     public static final int CODE = 689;
-    public static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static final SimpleDateFormat DF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
      * 以小端模式将int转成byte[]
@@ -54,7 +56,6 @@ public class DyUtil {
         try {
             int msgLength = 4 + 4 +msg.length() + 1;
             byte[] dataLength = intToBytes(msgLength);
-            //        byte[] dataHead = ArrayUtils.addAll(dataLength, DyUtil.intToBytes(DyUtil.CODE));
             byte[] dataHead = intToBytes(DyUtil.CODE);
             byte[] data = msg.getBytes(StandardCharsets.ISO_8859_1);
 
@@ -82,11 +83,8 @@ public class DyUtil {
             int dataLength = getResponseLength(inputStream);
             int contentLen2 = getResponseLength(inputStream);
             int msgType = getResponseLength(inputStream);
-            if (dataLength != 0) {
-                System.out.println("data length is : " + dataLength + " and content len is : " + contentLen2 + " code is : " + msgType);
-            }
 
-            if (dataLength <= 8 || dataLength >= 1024) {
+            if (dataLength <= 8 || dataLength >= 1032) {
                 return "-1";
             }
 
@@ -96,14 +94,12 @@ public class DyUtil {
             int readLen = 0;
             byte[] bytes = new byte[dataLength];
             while ((len = inputStream.read(bytes, 0 , dataLength - readLen)) != -1) {
-                System.out.println("len is : " + len);
                 byteArray.write(bytes, 0 ,len);
                 readLen += len;
                 if (readLen == dataLength) {
                     break;
                 }
             }
-
 
         } catch (IOException e){
             e.printStackTrace();
@@ -118,14 +114,15 @@ public class DyUtil {
         return bytesToInt(bytes);
     }
 
-    public static String getMsg(String text, String regex, int start, int end) {
-        String result = "";
-//        Pattern pattern = Pattern.compile("txt@=(.+?)/cid@");
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(text);
-        while (matcher.find()) {
-            result = matcher.group(0);
+    public static Map<String, String> getMsg(String s) {
+        String[] messages = s.split("/");
+        Map<String, String> m = new HashMap<>();
+        for (String message : messages) {
+            String[] ms = message.split("@=");
+            if (ms.length >= 2) {
+                m.put(ms[0], ms[1]);
+            }
         }
-        return result.length() <= 0 ? "" : result.substring(start, result.length() - end);
+        return m;
     }
 }

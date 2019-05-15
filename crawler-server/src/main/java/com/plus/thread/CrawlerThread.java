@@ -1,12 +1,17 @@
 package com.plus.thread;
 
 import com.plus.common.DyUtil;
+import com.plus.controller.DyController;
+import com.plus.model.PO.DanMuPo;
+import com.plus.service.IDanMuService;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Map;
 
 public class CrawlerThread implements Runnable {
 
@@ -20,20 +25,33 @@ public class CrawlerThread implements Runnable {
     public void run(){
 
         connectToDy();
+
         while (true) {
             String s = DyUtil.receiveMsg(client);
             if (s.equals("-1")) {
                 connectToDy();
                 continue;
             }
-            Pattern p1 = Pattern.compile("txt@=(.+?)/cid@");
-            Matcher matcher = p1.matcher(s);
-            String danMu = "";
-            while (matcher.find()) {
-                danMu = matcher.group(0);
-            }
-            if (!danMu.equals("")) {
-                System.out.println(DyUtil.df.format(new Date()) + " " + danMu);
+
+            Map<String, String> m = DyUtil.getMsg(s);
+            String danMu = m.get("txt");
+            if (danMu != null && !danMu.equals("")) {
+                String name = m.get("nn");
+                String cardName = m.get("bnn");
+                String cardLevel = m.get("bl");
+                String roomId = m.get("rid");
+                String level = m.get("level");
+                String time = DyUtil.DF.format(new Date());
+                System.out.println(time + " " + cardLevel + "级"  + cardName + " [" + name + "] : " + danMu);
+                DanMuPo danMuPo = new DanMuPo();
+                danMuPo.setTime(DyUtil.DF.format(new Date()));
+                danMuPo.setCardLevel(Integer.valueOf(cardLevel));
+                danMuPo.setCardName(cardName == null ? "": cardName);
+                danMuPo.setLevel(Integer.valueOf(level));
+                danMuPo.setRoomid(Integer.valueOf(roomId));
+                danMuPo.setUserName(name);
+                danMuPo.setText(danMu);
+                DyController.sDanMuService.storeDanMu(danMuPo);
             }
 
             try {
@@ -57,8 +75,6 @@ public class CrawlerThread implements Runnable {
 
         String loginMsg = "type@=loginreq/roomid@="+ String.valueOf(roomId) + "/";
         DyUtil.sendRequest(client, loginMsg);
-
-        String msg = DyUtil.receiveMsg(client);
 
         String joinGroupMsg =  "type@=joingroup/rid@=" + String.valueOf(roomId) +"/gid@=-9999/";
         DyUtil.sendRequest(client, joinGroupMsg);

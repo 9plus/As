@@ -20,7 +20,7 @@ public class AliveThread implements Runnable {
         String keepliveMsg = "type@=mrkl/";
         while (true) {
             DyUtil.sendRequest(client, keepliveMsg);
-            System.out.println(DyUtil.df.format(new Date()) + " keep alive ***********************");
+            System.out.println(DyUtil.DF.format(new Date()) + " keep alive ***********************");
             try{
                 Thread.sleep(10000);
             } catch (InterruptedException e) {

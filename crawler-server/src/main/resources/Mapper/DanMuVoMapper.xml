@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.plus.dao.DanMuVoMapper">
+    <resultMap id="DanMuMap" type="com.plus.model.PO.DanMuPo">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="time" jdbcType="VARCHAR" property="time" />
+        <result column="cardLevel" jdbcType="INTEGER" property="cardLevel" />
+        <result column="cardName" jdbcType="VARCHAR" property="cardName" />
+        <result column="level" jdbcType="INTEGER" property="level" />
+        <result column="roomId" jdbcType="INTEGER" property="roomId" />
+        <result column="userName" jdbcType="VARCHAR" property="userName" />
+        <result column="text" jdbcType="VARCHAR" property="text" />
+    </resultMap>
+
+    <sql id="DanMuColumnList">
+        id, time, cardLevel, cardName, level, roomId, userName, text
+    </sql>
+    <insert id="insertDanMu" parameterType="com.plus.model.PO.DanMuPo" useGeneratedKeys="true" keyProperty="id">
+        insert into t_danMus (time, cardLevel, cardName, level, roomId, userName, text)
+        values (#{time, jdbcType=VARCHAR}, #{cardLevel, jdbcType=INTEGER}, #{cardName, jdbcType=VARCHAR},
+                  #{level, jdbcType=INTEGER}, #{roomId, jdbcType=INTEGER},
+                  #{userName, jdbcType=VARCHAR}, #{text, jdbcType=VARCHAR})
+    </insert>
+    <select id="selectDanMuByName" parameterType="java.lang.String" resultMap="DanMuMap">
+        select *
+        <include refid="DanMuColumnList" />
+        from t_danMus
+        where userName = #{userName, jdbcType=VARCHAR}
+    </select>
+</mapper>
