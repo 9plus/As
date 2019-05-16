@@ -22,4 +22,9 @@ public class HomeController {
         return danMuService.searchDanMu(userName);
     }
 
+    @GetMapping(value = "random")
+    public String getRandomUserName() {
+        return danMuService.getRandomName();
+    }
+
 }

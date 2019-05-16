@@ -17,12 +17,12 @@ export class AsHttp {
     this.server = 'http://localhost:9999/';
   }
 
-  public get(url, params?: Object, callBack?: Function) {
+  public get(url, type: string, params?: Object, callBack?: Function) {
     let httpParams = new HttpParams();
     for (const key of Object.keys(params)) {
       httpParams = httpParams.set(key, params[key]);
     }
-    this.http.get(this.server + url, {params: httpParams})
+    this.http.get(this.server + url, {params: httpParams, responseType: type})
       .subscribe(res => {
         callBack(res);
       });

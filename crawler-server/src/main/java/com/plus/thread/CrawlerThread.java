@@ -1,5 +1,6 @@
 package com.plus.thread;
 
+import com.github.binarywang.java.emoji.EmojiConverter;
 import com.plus.common.DyUtil;
 import com.plus.controller.DyController;
 import com.plus.model.PO.DanMuPo;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.Map;
 
@@ -17,6 +19,8 @@ public class CrawlerThread implements Runnable {
 
     private Socket client;
     private int roomId;
+
+    private EmojiConverter emojiConverter = EmojiConverter.getInstance();
 
     public CrawlerThread(int roomId) {
         this.roomId = roomId;
@@ -48,11 +52,15 @@ public class CrawlerThread implements Runnable {
                 danMuPo.setCardLevel(Integer.valueOf(cardLevel));
                 danMuPo.setCardName(cardName == null ? "": cardName);
                 danMuPo.setLevel(Integer.valueOf(level));
-                danMuPo.setRoomid(Integer.valueOf(roomId));
+                danMuPo.setRoomId(Integer.valueOf(roomId));
                 danMuPo.setUserName(name);
-                danMuPo.setText(danMu);
-                if (DyController.sDanMuService.storeDanMu(danMuPo) > 0) {
-                    System.out.println("Insert Success! " + time + " " + cardLevel + "级"  + cardName + " [" + name + "] : " + danMu);
+                danMuPo.setText(emojiConverter.toAlias(danMu));
+                try {
+                    if (DyController.sDanMuService.storeDanMu(danMuPo) > 0) {
+                        System.out.println("Insert Success! " + time + " " + cardLevel + "级"  + cardName + " [" + name + "] : " + danMu);
+                    }
+                } catch (SQLException e) {
+                    System.out.println("format not correct");
                 }
             }
 

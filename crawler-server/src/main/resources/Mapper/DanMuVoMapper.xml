@@ -28,4 +28,11 @@
         where userName = #{userName, jdbcType=VARCHAR}
         order by #{time, jdbcType=VARCHAR}
     </select>
+
+    <select id="selectUserNameByRandom" resultType="String">
+        select userName FROM t_danMus AS t1 JOIN (SELECT ROUND(RAND() *
+            ((SELECT MAX(id) FROM t_danMus) - (SELECT MIN(id) FROM t_danMus)) + (SELECT MIN(id) FROM t_danMus)) AS id) AS t2
+        WHERE t1.id >= t2.id
+        ORDER BY t1.id LIMIT 1
+    </select>
 </mapper>

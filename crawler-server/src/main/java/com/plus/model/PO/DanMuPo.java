@@ -62,12 +62,12 @@ public class DanMuPo implements Serializable {
         this.level = level;
     }
 
-    public Integer getRoomid() {
+    public Integer getRoomId() {
         return roomId;
     }
 
-    public void setRoomid(Integer roomid) {
-        this.roomId = roomid;
+    public void setRoomId(Integer roomId) {
+        this.roomId = roomId;
     }
 
     public String getUserName() {

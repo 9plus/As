@@ -15,59 +15,7 @@ import { FormControl } from '@angular/forms';
 })
 export class HomeComponent implements OnInit, AfterViewInit{
 
-  danMus: DanMu[] = [
-    { card: 'js', name: 'user1', text: 'hello', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 2009, streamer: '09'},
-    { card: 'js', name: 'user1', text: 'hello', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 2009, streamer: '09'},
-    { card: 'js', name: 'user1', text: 'hello', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 2009, streamer: '09'},
-    { card: 'js', name: 'user1', text: 'hello', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 2009, streamer: '09'},
-    { card: 'js', name: 'user1', text: 'hello', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 2009, streamer: '09'},
-    { card: 'js', name: 'user1', text: 'hello', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 2009, streamer: '09'},
-    { card: 'js', name: 'user1', text: 'hello', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 2009, streamer: '09'},
-    { card: 'js', name: 'user1', text: 'hello', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 2009, streamer: '09'},
-
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 2009, streamer: '09'},
-    { card: 'js', name: 'user1', text: 'hello', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 2009, streamer: '09'},
-    { card: 'js', name: 'user1', text: 'hello', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 2009, streamer: '09'},
-    { card: 'js', name: 'user1', text: 'hello', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 2009, streamer: '09'},
-    { card: 'js', name: 'user1', text: 'hello', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 2009, streamer: '09'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-    { card: 'js', name: 'user2', text: 'byebye', time: '2019-5-9', room: 9999, streamer: 'fg'},
-  ];
+  danMus: DanMu[] = [];
 
   /** ??????????????? ?????????????????? */
   currentDanMus: DanMu[] = [];
@@ -94,7 +42,10 @@ export class HomeComponent implements OnInit, AfterViewInit{
   }
 
   public getRandomName(): void {
-    this.userName = `${Math.random()}`;
+    const that = this;
+    this.httpClient.get(HomeUtil.RANDOM_NAME_URL, 'text', {}, function (res: any) {
+      that.userName = res;
+    });
   }
 
   public search(name: string): void {
@@ -102,6 +53,8 @@ export class HomeComponent implements OnInit, AfterViewInit{
       return;
     }
     this.clearViewInfo();
+    this.getDanMu(name);
+    console.log(this.danMus);
     this.initDyUser(name);
     this.show();
   }
@@ -109,29 +62,26 @@ export class HomeComponent implements OnInit, AfterViewInit{
   public initDyUser(name: string): void {
     this.dyUser.clear();
     this.dyUser.name = name;
-    for(let danMu of this.getDanMu(name)) {
-      if(!this.dyUser.danMus.get(danMu.room)) {
-        this.dyUser.danMus.set(danMu.room, []);
+    console.log(this.danMus);
+    for (const danMu of this.danMus) {
+      console.log('111111');
+      if (!this.dyUser.danMus.get(danMu.roomId)) {
+        this.dyUser.danMus.set(danMu.roomId, []);
       }
-      this.dyUser.danMus.get(danMu.room).push(danMu);
-      if (!this.dyUser.rooms.has(danMu.room)) {
-        this.dyUser.rooms.set(danMu.room, danMu.streamer);
+      this.dyUser.danMus.get(danMu.roomId).push(danMu);
+      if (!this.dyUser.rooms.has(danMu.roomId)) {
+        this.dyUser.rooms.set(danMu.roomId, '叫我老陈就好了');
       }
     }
-    this.dyUser.cards = this.getCards(name);
   }
 
-  public getDanMu(name: string): DanMu[] {
-    // const that = this;
-    // const param = {'name': name, 'count': queryCount, 'skipCount': skipCount};
-    // this.httpClient.get(HomeUtil.DANMU_QUERY_URL, param, function(res: Array<DanMu>) {
-    //   that.danMus = res;
-    // });
-    return this.danMus;
-  }
-
-  public getCards(name: string): string[] {
-    return ['xiaojiangshi', 'jituanjun'];
+  public getDanMu(name: string): void {
+    const param = {'userName': name};
+    // tslint:disable-next-line:no-unused-expression
+    this.httpClient.get(HomeUtil.DANMU_QUERY_URL, 'json', param, (res) => {
+      this.danMus = res;
+    });
+    console.log(this);
   }
 
   public show(): void {
@@ -140,6 +90,7 @@ export class HomeComponent implements OnInit, AfterViewInit{
       this.streamers.push(value);
     });
     setTimeout(() => {
+      console.log(this.dyUser);
       this.currentDanMus = this.dyUser.danMus.get(this.rooms[this.selectedRoomIndex ? this.selectedRoomIndex : 0]);
       this.pageCount = Math.ceil(1.0 * this.currentDanMus.length / HomeUtil.PAGE_DANMU_SIZE);
       for (let i = 1; i <= this.pageCount; i++) {
@@ -151,7 +102,7 @@ export class HomeComponent implements OnInit, AfterViewInit{
   }
 
   public onRoomChanged(): void {
-    console.log("on room change");
+    console.log('on room change');
     this.currentDanMus = this.dyUser.danMus.get(this.rooms[this.selectedRoomIndex ? this.selectedRoomIndex : 0]);
     this.pages = [];
     this.pageCount = Math.ceil(1.0 * this.currentDanMus.length / HomeUtil.PAGE_DANMU_SIZE);
@@ -168,8 +119,8 @@ export class HomeComponent implements OnInit, AfterViewInit{
     if (!this.selectedPage || this.selectedPage <= 0) {
       this.selectedPage = 1;
     }
-    let start: number = (this.selectedPage - 1) * HomeUtil.PAGE_DANMU_SIZE;
-    let end: number = this.selectedPage * HomeUtil.PAGE_DANMU_SIZE;
+    const start: number = (this.selectedPage - 1) * HomeUtil.PAGE_DANMU_SIZE;
+    const end: number = this.selectedPage * HomeUtil.PAGE_DANMU_SIZE;
     this.currentDanMus = this.currentDanMus.slice(start, end);
   }
 

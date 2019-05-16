@@ -11,4 +11,6 @@ public interface DanMuVoMapper {
     int insertDanMu(DanMuPo danMuPo);
 
     List<DanMuPo> selectDanMuByName(String userName);
+
+    String selectUserNameByRandom();
 }
