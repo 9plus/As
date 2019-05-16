@@ -28,7 +28,7 @@ public class CrawlerThread implements Runnable {
 
         while (true) {
             String s = DyUtil.receiveMsg(client);
-            if (s.equals("-1")) {
+            if (s.equals(DyUtil.INVALID_MSG)) {
                 connectToDy();
                 continue;
             }
@@ -42,7 +42,7 @@ public class CrawlerThread implements Runnable {
                 String roomId = m.get("rid");
                 String level = m.get("level");
                 String time = DyUtil.DF.format(new Date());
-                System.out.println(time + " " + cardLevel + "级"  + cardName + " [" + name + "] : " + danMu);
+
                 DanMuPo danMuPo = new DanMuPo();
                 danMuPo.setTime(DyUtil.DF.format(new Date()));
                 danMuPo.setCardLevel(Integer.valueOf(cardLevel));
@@ -51,7 +51,9 @@ public class CrawlerThread implements Runnable {
                 danMuPo.setRoomid(Integer.valueOf(roomId));
                 danMuPo.setUserName(name);
                 danMuPo.setText(danMu);
-                DyController.sDanMuService.storeDanMu(danMuPo);
+                if (DyController.sDanMuService.storeDanMu(danMuPo) > 0) {
+                    System.out.println("Insert Success! " + time + " " + cardLevel + "级"  + cardName + " [" + name + "] : " + danMu);
+                }
             }
 
             try {

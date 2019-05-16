@@ -25,6 +25,7 @@ public class DyUtil {
     public static final int DATA_HEAD_LEN = 4 + 4 + 1;
     public static final int CODE = 689;
     public static final SimpleDateFormat DF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static final String INVALID_MSG = "-1";
 
     /**
      * 以小端模式将int转成byte[]
@@ -85,7 +86,7 @@ public class DyUtil {
             int msgType = getResponseLength(inputStream);
 
             if (dataLength <= 8 || dataLength >= 1032) {
-                return "-1";
+                return INVALID_MSG;
             }
 
             dataLength = dataLength - 8;

@@ -6,6 +6,7 @@ import com.plus.service.IDanMuService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class DanMuServiceImpl implements IDanMuService {
@@ -15,7 +16,12 @@ public class DanMuServiceImpl implements IDanMuService {
 
 
     @Override
-    public void storeDanMu(DanMuPo danMuPo) {
-        System.out.println("主键是: " + danMuDao.insertDanMu(danMuPo));
+    public int storeDanMu(DanMuPo danMuPo) {
+        return danMuDao.insertDanMu(danMuPo);
+    }
+
+    @Override
+    public List<DanMuPo> searchDanMu(String userName) {
+        return danMuDao.selectDanMuByName(userName);
     }
 }

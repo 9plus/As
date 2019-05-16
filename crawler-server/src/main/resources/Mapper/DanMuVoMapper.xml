@@ -22,9 +22,10 @@
                   #{userName, jdbcType=VARCHAR}, #{text, jdbcType=VARCHAR})
     </insert>
     <select id="selectDanMuByName" parameterType="java.lang.String" resultMap="DanMuMap">
-        select *
+        select
         <include refid="DanMuColumnList" />
         from t_danMus
         where userName = #{userName, jdbcType=VARCHAR}
+        order by #{time, jdbcType=VARCHAR}
     </select>
 </mapper>
