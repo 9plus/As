@@ -8,6 +8,7 @@
 
 * [小试Angular -- Hello World](<https://github.com/9plus/As/tree/master/demo/hello-world>)
 * [小试Angular -- 整合Angular和Spring Boot](<https://github.com/9plus/As/tree/master/demo/plus>)
+* [小试Angular -- 搭建一个弹幕查询页面(1)](<https://github.com/9plus/As/tree/master/demo/search>)
 
 # Deploy
 
