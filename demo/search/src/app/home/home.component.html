@@ -1,0 +1,29 @@
+<mat-card style="width: 48%; height: 74%; border: 1px solid #000000">
+  <mat-card-content>
+    <mat-form-field appearance="outline">
+      <mat-label>Click me</mat-label>
+      <input matInput placeholder="Username">
+      <mat-icon matSuffix>casino</mat-icon>
+      <mat-hint>Hint</mat-hint>
+    </mat-form-field>
+    <mat-tab-group>
+      <mat-tab label="First">
+        <div style="float: right;">
+          <mat-form-field>
+            <mat-label>Page</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let page of [1, 2 ,3]" [value]="page">{{page}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button mat-icon-button ><mat-icon>first_page</mat-icon></button>
+          <button mat-icon-button ><mat-icon>chevron_left</mat-icon></button>
+          <button mat-icon-button ><mat-icon>chevron_right</mat-icon></button>
+          <button mat-icon-button ><mat-icon>last_page</mat-icon></button>
+        </div>
+      </mat-tab>
+      <mat-tab label="Second"> Content 2 </mat-tab>
+      <mat-tab label="Third"> Content 3 </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>
