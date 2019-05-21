@@ -13,7 +13,7 @@
 
 # Deploy
 
-目前整个项目还没写完，可以按照以下步骤测试前端页面。
+目前项目已经可用，部署可按以下步骤：
 
 **Step1**
 
@@ -26,13 +26,19 @@ cd As
 
 **Step2**
 
+修改DyController.java文件中的房间名。
+
+导入dy.sql文件，并修改application.yml中的数据库中的用户名与密码。
+
+**Step3**
+
 执行maven命令编译
 
 ```
 mvn clean install
 ```
 
-**Step3**
+**Step4**
 
 启动springboot
 
@@ -42,3 +48,11 @@ mvn spring-boot:run
 ```
 
 默认端口号为9999，在浏览器打开localhost:9999即可进入
+
+# About Me
+
+学习Java与Angular，关注我的公众号：
+
+![](<https://mmbiz.qpic.cn/mmbiz_png/mEUmd7rdpBfBdw0w6xXEYOicxiaBbjBVIkY1jDCqSwMLdiaLBNZCNGpY8acyB7ozcADvRZGOOqyM27hgANjlxIDicw/0?wx_fmt=png>)
+
+更多精彩文章等你来看~
