@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ChangeDetectorRef} from '@angular/core';
 import { MatPaginator, MatTableDataSource, TooltipPosition } from '@angular/material';
 import { AsHttp } from '../service/as-http.service';
 import { HomeUtil, DanMu } from '../common/home.util';
@@ -31,7 +31,8 @@ export class HomeComponent implements OnInit, AfterViewInit{
   selectedRoomIndex: number; // ????????index 0,1,2...
 
   constructor(
-    private httpClient: AsHttp
+    private httpClient: AsHttp,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -54,17 +55,12 @@ export class HomeComponent implements OnInit, AfterViewInit{
     }
     this.clearViewInfo();
     this.getDanMu(name);
-    console.log(this.danMus);
-    this.initDyUser(name);
-    this.show();
   }
 
   public initDyUser(name: string): void {
     this.dyUser.clear();
     this.dyUser.name = name;
-    console.log(this.danMus);
     for (const danMu of this.danMus) {
-      console.log('111111');
       if (!this.dyUser.danMus.get(danMu.roomId)) {
         this.dyUser.danMus.set(danMu.roomId, []);
       }
@@ -80,8 +76,9 @@ export class HomeComponent implements OnInit, AfterViewInit{
     // tslint:disable-next-line:no-unused-expression
     this.httpClient.get(HomeUtil.DANMU_QUERY_URL, 'json', param, (res) => {
       this.danMus = res;
+      this.initDyUser(name);
+      this.show();
     });
-    console.log(this);
   }
 
   public show(): void {
@@ -89,20 +86,17 @@ export class HomeComponent implements OnInit, AfterViewInit{
       this.rooms.push(key);
       this.streamers.push(value);
     });
-    setTimeout(() => {
-      console.log(this.dyUser);
-      this.currentDanMus = this.dyUser.danMus.get(this.rooms[this.selectedRoomIndex ? this.selectedRoomIndex : 0]);
-      this.pageCount = Math.ceil(1.0 * this.currentDanMus.length / HomeUtil.PAGE_DANMU_SIZE);
-      for (let i = 1; i <= this.pageCount; i++) {
-        this.pages.push(i);
-      }
-      this.selectedPage = 1;
-      this.currentDanMus = this.currentDanMus.slice(0, HomeUtil.PAGE_DANMU_SIZE);
-    });
+    console.log(this.currentDanMus);
+    this.currentDanMus = this.dyUser.danMus.get(this.rooms[this.selectedRoomIndex ? this.selectedRoomIndex : 0]);
+    this.pageCount = Math.ceil(1.0 * this.currentDanMus.length / HomeUtil.PAGE_DANMU_SIZE);
+    for (let i = 1; i <= this.pageCount; i++) {
+      this.pages.push(i);
+    }
+    this.selectedPage = 1;
+    this.currentDanMus = this.currentDanMus.slice(0, HomeUtil.PAGE_DANMU_SIZE);
   }
 
   public onRoomChanged(): void {
-    console.log('on room change');
     this.currentDanMus = this.dyUser.danMus.get(this.rooms[this.selectedRoomIndex ? this.selectedRoomIndex : 0]);
     this.pages = [];
     this.pageCount = Math.ceil(1.0 * this.currentDanMus.length / HomeUtil.PAGE_DANMU_SIZE);
@@ -114,7 +108,6 @@ export class HomeComponent implements OnInit, AfterViewInit{
   }
 
   public onPageChanged(): void {
-    console.log(`on page change and the index is : ${this.selectedPage}`);
     this.currentDanMus = this.dyUser.danMus.get(this.rooms[this.selectedRoomIndex ? this.selectedRoomIndex : 0]);
     if (!this.selectedPage || this.selectedPage <= 0) {
       this.selectedPage = 1;

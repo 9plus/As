@@ -29,12 +29,16 @@ public class DyController implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        Thread t1 = new Thread(new CrawlerThread(74960)); //60937
-//        Thread t2 = new Thread(new CrawlerThread(88660));
-        Thread t3 = new Thread(new AliveThread());
+        Thread t1 = new Thread(new CrawlerThread(74960));
+        Thread t2 = new Thread(new CrawlerThread(60937));
+        Thread t3 = new Thread(new CrawlerThread(9999));
+        Thread t4 = new Thread(new CrawlerThread(110));
+        Thread t5 = new Thread(new AliveThread());
         t1.start();
-//        t2.start();
+        t2.start();
         t3.start();
+        t4.start();
+        t5.start();
 
 
 

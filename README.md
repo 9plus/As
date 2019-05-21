@@ -11,6 +11,10 @@
 * [小试Angular -- 搭建一个弹幕查询页面(1)](<https://github.com/9plus/As/tree/master/demo/search>)
 * [小试Angular -- 我用Java爬取了斗鱼刀塔区的弹幕](<https://github.com/9plus/As/tree/master/demo/DyTest>)
 
+# Display
+
+效果见[知乎专栏](<https://zhuanlan.zhihu.com/p/63672230>)
+
 # Deploy
 
 目前项目已经可用，部署可按以下步骤：

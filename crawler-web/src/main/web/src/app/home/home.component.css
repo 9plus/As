@@ -27,3 +27,12 @@
     margin-left: 6px;
     width: 77px;
 }
+.example-card {
+  max-width: 260px;
+  margin: 0 auto;
+}
+
+.example-header-image {
+  background-image: url('https://mmbiz.qpic.cn/mmbiz_png/mEUmd7rdpBcvjPqxNou11IgdHspnxD5mFHDhia2MGUmasE1zcBoKuWcEMKicjQYMLK3K4yQT7JvE54Qm6fv0BPAg/0?wx_fmt=png');
+  background-size: cover;
+}

@@ -14,9 +14,9 @@
       <a mat-raised-button class="home-button" (click)="search(userName)">
         <span>Search</span>
       </a>
-      <a mat-raised-button class="home-button" [routerLink]="['/', 'detail']">
-        <span>Detail</span><mat-icon>navigate_next</mat-icon>
-      </a>
+<!--      <a mat-raised-button class="home-button" [routerLink]="['/', 'detail']">-->
+<!--        <span>Detail</span><mat-icon>navigate_next</mat-icon>-->
+<!--      </a>-->
     </div>
     <mat-tab-group [(selectedIndex)]="selectedRoomIndex" (selectedTabChange)=onRoomChanged()>
       <mat-tab *ngFor="let streamer of streamers" label="{{streamer}}">
@@ -43,6 +43,29 @@
           <button mat-icon-button (click)="onLastPage()"><mat-icon>last_page</mat-icon></button>
         </div>
 
+      </mat-tab>
+      <mat-tab label="关于作者">
+        <mat-card class="example-card">
+          <ng-container style="margin-left: 100px">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>Plus技术栈</mat-card-title>
+            <mat-card-subtitle>专注Java，分享有趣的代码世界</mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image src="https://mmbiz.qpic.cn/mmbiz_png/mEUmd7rdpBfBdw0w6xXEYOicxiaBbjBVIkY1jDCqSwMLdiaLBNZCNGpY8acyB7ozcADvRZGOOqyM27hgANjlxIDicw/0?wx_fmt=png" alt="Photo of a Shiba Inu">
+          <mat-card-content>
+            <p>
+              如果您喜欢这个项目，不妨为它点个star。
+              <br>
+              如果您对相关技术感兴趣，欢迎扫描二维码关注～
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button ><a style="text-decoration: none;color: black" href="https://github.com/9plus/As">Github</a></button>
+            <button mat-button> <a style="text-decoration: none;color: black" href="http://mp.weixin.qq.com/s?__biz=MzU3OTczODM5NA==&mid=100000099&idx=1&sn=c246ad80791f9404245005edfd6cc41a&chksm=7d60cf164a1746006ff2babc7b983fedb574122157876aac6d981229a638365140513021f16c#rd">教程</a></button>
+          </mat-card-actions>
+          </ng-container>
+        </mat-card>
       </mat-tab>
     </mat-tab-group>
   </mat-card-content>
