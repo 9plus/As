@@ -1,0 +1,84 @@
+.example-box {
+  width: 200px;
+  height: 200px;
+  border: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  cursor: move;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: #fff;
+  border-radius: 4px;
+  position: relative;
+  z-index: 1;
+  transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+  0 2px 2px 0 rgba(0, 0, 0, 0.14),
+  0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.example-box:active {
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+#container {
+  position: absolute;
+  top: -10%;
+  bottom: 0;
+  left: -10%;
+  right: 0;
+  margin: auto;
+  height: 50%;
+  width: 50%;
+}
+
+.bg-border {
+  padding: 1em;
+  border: 1px dashed transparent;
+  background: linear-gradient(white,white) padding-box,
+  repeating-linear-gradient(-45deg,#5c5c5c 0, #5c5c5c 0.25em,white 0,white 0.75em);
+}
+
+.add {
+  width: 100px;
+  height: 100px;
+  color: #ccc;
+  transition: color .25s;
+  position: relative;
+  margin-top: 20%;
+  margin-left: 42%;
+
+}
+
+.add::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 80px;
+  transform:translate(-50%, -50%);
+  border-top: 10px solid;
+}
+
+.add::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 80px;
+  transform: translate(-50%,-50%);
+  border-left: 10px solid;
+}
+
+.dragEnterBg {
+  background: #d9d9d9;
+}
+
+#image {
+  width: 300px;
+  height: 300px;
+}
+

@@ -1,0 +1,6 @@
+<div id="container" [ngClass]="{'bg-border':true, 'dragEnterBg': isDragging}"
+     appDragDrop (dropHandler)="onDropHandler($event)" (dragHandler)="onDragHandler($event)">
+  <img [src]="imageSrc"/>
+</div>
+
+<router-outlet></router-outlet>
