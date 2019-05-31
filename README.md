@@ -2,7 +2,7 @@
 
 ![](<https://img.shields.io/badge/springboot-v2.1-brightgreen.svg>)    ![](<https://img.shields.io/badge/-typescript-blue.svg>)    ![](<https://img.shields.io/badge/angular-v6.0-red.svg>)
 
-在线查询斗鱼弹幕。
+Angular所有的练习与实践项目。
 
 # Demo
 
@@ -10,6 +10,7 @@
 * [小试Angular -- 整合Angular和Spring Boot](<https://github.com/9plus/As/tree/master/demo/plus>)
 * [小试Angular -- 搭建一个弹幕查询页面(1)](<https://github.com/9plus/As/tree/master/demo/search>)
 * [小试Angular -- 我用Java爬取了斗鱼刀塔区的弹幕](<https://github.com/9plus/As/tree/master/demo/DyTest>)
+* [小试Angular -- 理解Directive，图片拖放实践](<https://github.com/9plus/As/tree/master/demo/Drag>)
 
 # Display
 
@@ -17,7 +18,7 @@
 
 # Deploy
 
-目前项目已经可用，部署可按以下步骤：
+目前斗鱼爬虫项目已经可用，部署可按以下步骤：
 
 **Step1**
 
