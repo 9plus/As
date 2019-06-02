@@ -11,15 +11,12 @@
 * [小试Angular -- 搭建一个弹幕查询页面(1)](<https://github.com/9plus/As/tree/master/demo/search>)
 * [小试Angular -- 我用Java爬取了斗鱼刀塔区的弹幕](<https://github.com/9plus/As/tree/master/demo/DyTest>)
 * [小试Angular -- 理解Directive，图片拖放实践](<https://github.com/9plus/As/tree/master/demo/Drag>)
-* [油猴脚本 -- 斗鱼弹幕助手]([chrome油猴斗鱼弹幕助手v0.1.txt](https://github.com/9plus/As/blob/master/demo/DyDm/chrome%E6%B2%B9%E7%8C%B4%E6%96%97%E9%B1%BC%E5%BC%B9%E5%B9%95%E5%8A%A9%E6%89%8Bv0.1.txt))
-
-# Display
-
-效果见[知乎专栏](<https://zhuanlan.zhihu.com/p/63672230>)
+* [油猴脚本 -- 斗鱼弹幕助手](https://github.com/9plus/As/blob/master/demo/DyDm/chrome%E6%B2%B9%E7%8C%B4%E6%96%97%E9%B1%BC%E5%BC%B9%E5%B9%95%E5%8A%A9%E6%89%8Bv0.1.txt)
+* [斗鱼弹幕爬虫SpringBoot + Angular](<https://github.com/9plus/As/tree/master/demo/DyCrawler>)
 
 # Deploy
 
-目前斗鱼爬虫项目已经可用，部署可按以下步骤：
+目前斗鱼爬虫项目已经可用，效果见[知乎专栏](<https://zhuanlan.zhihu.com/p/63672230>)，部署可按以下步骤：
 
 **Step1**
 
@@ -27,7 +24,7 @@
 
 ```
 git clone https://github.com/9plus/As.git
-cd As
+cd As/demo/DyCrawler
 ```
 
 **Step2**
