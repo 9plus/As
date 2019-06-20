@@ -1,5 +1,6 @@
 package com.plus.controller;
 
+import com.plus.common.RoomConstant;
 import com.plus.service.IDanMuService;
 import com.plus.service.impl.DanMuServiceImpl;
 import com.plus.thread.AliveThread;
@@ -28,13 +29,15 @@ public class DyController implements ApplicationRunner {
         sDanMuService = this.danMuService;
     }
 
+    /**
+     * 创建线程池监听8个房间的弹幕
+     * @param args
+     */
     @Override
     public void run(ApplicationArguments args) {
-        ThreadPool pool = new ThreadPool(10, 20);
-        int[] rooms = {60937, 9999, 99999, 2009, 4916};
-        for (Integer room : rooms) {
+        ThreadPool pool = new ThreadPool(RoomConstant.ROOM_NUMS);
+        for (Integer room : RoomConstant.roomMap.keySet()) {
             pool.execute(new CrawlerThread(room));
         }
-        //client.close();
     }
 }

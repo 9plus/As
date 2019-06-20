@@ -35,4 +35,17 @@
         WHERE t1.id >= t2.id
         ORDER BY t1.id LIMIT 1
     </select>
+
+    <insert id="insertIp" parameterType="java.lang.String" useGeneratedKeys="true">
+        insert into t_access (ip, counts)
+        values (#{ip, jdbcType=VARCHAR}, 1)
+    </insert>
+    <select id="selectAccessCountsByIp" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select counts from t_access where ip = #{ip, jdbcType=VARCHAR}
+    </select>
+    <update id="updateAccessCountsByIp" parameterType="java.lang.String">
+        update t_access
+        set counts = counts + 1
+        where ip = #{ip, jdbcType=VARCHAR}
+    </update>
 </mapper>

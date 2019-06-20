@@ -8,9 +8,15 @@ import java.util.List;
 @Component
 public interface DanMuVoMapper {
 
-    int insertDanMu(DanMuPo danMuPo);
+    Integer insertDanMu(DanMuPo danMuPo);
 
     List<DanMuPo> selectDanMuByName(String userName);
 
     String selectUserNameByRandom();
+
+    Integer insertIp(String ip);
+
+    Integer selectAccessCountsByIp(String ip);
+
+    Integer updateAccessCountsByIp(String ip);
 }

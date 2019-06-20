@@ -12,4 +12,8 @@ public interface IDanMuService {
     List<DanMuPo> searchDanMu(String userName);
 
     String getRandomName();
+
+    void incAccessCount(String ip);
+
+    Boolean isRequestValid(String ip);
 }

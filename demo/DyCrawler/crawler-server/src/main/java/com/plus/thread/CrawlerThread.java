@@ -2,6 +2,7 @@ package com.plus.thread;
 
 import com.github.binarywang.java.emoji.EmojiConverter;
 import com.plus.common.DyUtil;
+import com.plus.common.RoomConstant;
 import com.plus.controller.DyController;
 import com.plus.model.PO.DanMuPo;
 import com.plus.service.IDanMuService;
@@ -43,7 +44,7 @@ public class CrawlerThread implements Runnable {
                 String name = m.get("nn");
                 String cardName = m.get("bnn");
                 String cardLevel = m.get("bl");
-                String roomId = m.get("rid");
+                int roomId = Integer.valueOf(m.get("rid"));
                 String level = m.get("level");
                 String time = DyUtil.DF.format(new Date());
 
@@ -52,12 +53,12 @@ public class CrawlerThread implements Runnable {
                 danMuPo.setCardLevel(Integer.valueOf(cardLevel));
                 danMuPo.setCardName(cardName == null ? "": cardName);
                 danMuPo.setLevel(Integer.valueOf(level));
-                danMuPo.setRoomId(Integer.valueOf(roomId));
+                danMuPo.setRoomId(roomId);
                 danMuPo.setUserName(name);
                 danMuPo.setText(emojiConverter.toAlias(danMu));
                 try {
                     if (DyController.sDanMuService.storeDanMu(danMuPo) > 0) {
-                        System.out.println("Insert Success! " + time + " " + cardLevel + "级"  + cardName + " [" + name + "] : " + danMu);
+                        System.out.println("Insert Success! " + time + " " + RoomConstant.roomMap.get(roomId) + " " + cardLevel + "级"  + cardName + " [" + name + "] : " + danMu);
                     }
                 } catch (SQLException e) {
                     System.out.println("format not correct");

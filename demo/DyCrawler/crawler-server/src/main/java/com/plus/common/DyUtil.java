@@ -1,5 +1,6 @@
 package com.plus.common;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,6 +19,9 @@ public class DyUtil {
     private DyUtil() throws DyException{
         throw new DyException("Construct error");
     }
+
+    public static final String SUCCESS = "SUCCESS";
+    public static final String ERROR = "ERROR";
 
     public static final String HOST = "119.96.201.28"; // openbarrage.douyutv.com
     public static final int PORT = 8601;
@@ -125,5 +129,17 @@ public class DyUtil {
             }
         }
         return m;
+    }
+
+    /**
+     * 检查用户名中是否包含特殊字符
+     * @param userName 用户名
+     * @return 如果包含特殊字符则无效
+     */
+    public static boolean isUserNameValid(String userName) {
+        String specialCharacterRegEx="[`~!@#$%^&*()+=|{}':;,\\[\\].<>/?！￥…（）—【】‘；：”“’。，、？]";
+        Pattern pattern = Pattern.compile(specialCharacterRegEx);
+        Matcher matcher = pattern.matcher(userName);
+        return !matcher.find();
     }
 }

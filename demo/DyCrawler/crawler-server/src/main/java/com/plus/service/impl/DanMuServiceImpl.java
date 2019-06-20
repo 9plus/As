@@ -12,6 +12,8 @@ import java.util.List;
 @Service
 public class DanMuServiceImpl implements IDanMuService {
 
+    private static final int MAX_REQUEST_TIMES = 100;
+
     @Resource
     private DanMuVoMapper danMuDao;
 
@@ -29,5 +31,21 @@ public class DanMuServiceImpl implements IDanMuService {
     @Override
     public String getRandomName() {
         return danMuDao.selectUserNameByRandom();
+    }
+
+    @Override
+    public void incAccessCount(String ip) {
+        Integer accessCounts = danMuDao.selectAccessCountsByIp(ip);
+        if (accessCounts != null) {
+            danMuDao.updateAccessCountsByIp(ip);
+        } else {
+            danMuDao.insertIp(ip);
+        }
+    }
+
+    @Override
+    public Boolean isRequestValid(String ip) {
+        Integer accessCounts = danMuDao.selectAccessCountsByIp(ip);
+        return accessCounts == null || accessCounts < MAX_REQUEST_TIMES;
     }
 }
