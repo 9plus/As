@@ -16,4 +16,6 @@ public interface IDanMuService {
     void incAccessCount(String ip);
 
     Boolean isRequestValid(String ip);
+
+    void clearIp();
 }

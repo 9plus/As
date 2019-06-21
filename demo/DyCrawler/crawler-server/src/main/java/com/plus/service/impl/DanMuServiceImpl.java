@@ -48,4 +48,9 @@ public class DanMuServiceImpl implements IDanMuService {
         Integer accessCounts = danMuDao.selectAccessCountsByIp(ip);
         return accessCounts == null || accessCounts < MAX_REQUEST_TIMES;
     }
+
+    @Override
+    public void clearIp() {
+        danMuDao.deleteIp();
+    }
 }

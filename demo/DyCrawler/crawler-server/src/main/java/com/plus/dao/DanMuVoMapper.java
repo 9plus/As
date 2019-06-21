@@ -14,9 +14,11 @@ public interface DanMuVoMapper {
 
     String selectUserNameByRandom();
 
-    Integer insertIp(String ip);
+    void insertIp(String ip);
 
     Integer selectAccessCountsByIp(String ip);
 
-    Integer updateAccessCountsByIp(String ip);
+    void updateAccessCountsByIp(String ip);
+
+    void deleteIp();
 }
